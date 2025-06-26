@@ -19,6 +19,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
@@ -88,6 +89,9 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
 
     static final String APP_PROPERTIES_PATH = "/application.properties";
 
+    @Autowired
+    private ConfigurableApplicationContext applicationContext;
+
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         Stage stage = event.getStage();
@@ -97,7 +101,7 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
         var scene = new Scene(clipboardPane());
         scene.getStylesheets().addAll(
                 ResourceUtility.getResourceAsString(ASSETS_DIR + "index.css"),
-                ResourceUtility.getResourceAsString(ASSETS_DIR + "clipboard-page.css")
+                ResourceUtility.getResourceAsString(ASSETS_DIR + "clipboard-dock.css")
         );
 
 
@@ -106,14 +110,18 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
         stage.getIcons().add(new Image(APP_ICON_PATH));
         stage.setOnCloseRequest(t -> Platform.exit());
         
-        // Set utility window dimensions and type
-        stage.initStyle(StageStyle.UTILITY);
-        stage.setWidth(400);
-        stage.setHeight(600);
-        stage.setMinWidth(350);
-        stage.setMinHeight(500);
-        stage.setResizable(true);
-        stage.setAlwaysOnTop(false);
+        // Set Windows 11 dock window properties
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setWidth(360);
+        stage.setHeight(800);
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
+        
+        // Position at right edge of screen
+        javafx.stage.Screen screen = javafx.stage.Screen.getPrimary();
+        double screenWidth = screen.getVisualBounds().getWidth();
+        stage.setX(screenWidth - 360);
+        stage.setY(0);
 
 
         Platform.runLater(() -> {
@@ -123,7 +131,7 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
     }
 
     private Pane clipboardPane() {
-        return ResourceUtility.loadFxml("/io/joshuasalcedo/fx/presentation/clipboard-page.fxml");
+        return ResourceUtility.loadFxmlWithSpring("/io/joshuasalcedo/fx/presentation/ClipboardDock.fxml", applicationContext);
     }
 
     private void loadApplicationProperties() {

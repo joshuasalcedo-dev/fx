@@ -19,6 +19,7 @@ public class ClipboardEntry {
 
   @Column(columnDefinition = "TEXT", nullable = false)
   @NotBlank(message = "Clipboard content cannot be empty")
+  @Lob
   private String content;
 
   @Column(nullable = false)
@@ -28,7 +29,7 @@ public class ClipboardEntry {
   @Column(nullable = false)
   private boolean isPinned = false;
 
-  @Column(name = "content_hash")
+  @Column(name = "content_hash", length = 64)
   private String contentHash;
 
   @Column(name = "content_type")
@@ -57,7 +58,9 @@ public class ClipboardEntry {
   }
 
   private String generateContentHash() {
-    return String.valueOf(content + timestamp.hashCode());
+    if (content == null) return null;
+    // Simple hash using content only (timestamp makes entries unique even with same content)
+    return String.valueOf(Math.abs(content.hashCode()));
   }
 
   public boolean isDuplicate(ClipboardEntry other) {

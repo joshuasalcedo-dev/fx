@@ -96,7 +96,7 @@ class ClipboardServiceTest {
     void save_EmptyContent_ThrowsException() {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> clipboardService.save(""));
-        assertThrows(IllegalArgumentException.class, () -> clipboardService.save(null));
+        assertThrows(IllegalArgumentException.class, () -> clipboardService.save((String) null));
 
         verify(clipboardRepository, never()).save(any(ClipboardEntry.class));
     }
@@ -198,7 +198,7 @@ class ClipboardServiceTest {
     void deleteAll_IncludePinnedFalse_DeletesOnlyUnpinnedEntries() {
         // Arrange
         when(clipboardRepository.count()).thenReturn(10L);
-        when(clipboardRepository.deleteByIsPinnedFalse()).thenReturn(7L);
+        when(clipboardRepository.deleteByIsPinnedFalse()).thenReturn(7);
 
         // Act
         long result = clipboardService.deleteAll(false);
@@ -213,7 +213,7 @@ class ClipboardServiceTest {
     void testDeleteAll_CallsDeleteAllWithFalse() {
         // Arrange
         when(clipboardRepository.count()).thenReturn(10L);
-        when(clipboardRepository.deleteByIsPinnedFalse()).thenReturn(7L);
+        when(clipboardRepository.deleteByIsPinnedFalse()).thenReturn(7);
 
         // Act
         clipboardService.deleteAll();
@@ -390,7 +390,7 @@ class ClipboardServiceTest {
     void deleteOlderThan_IncludePinnedTrue_DeletesAllOldEntries() {
         // Arrange
         int hours = 48;
-        when(clipboardRepository.deleteByTimestampBefore(any(LocalDateTime.class))).thenReturn(5L);
+        when(clipboardRepository.deleteByTimestampBefore(any(LocalDateTime.class))).thenReturn(5);
 
         // Act
         long result = clipboardService.deleteOlderThan(hours, true);
@@ -405,7 +405,7 @@ class ClipboardServiceTest {
     void deleteOlderThan_IncludePinnedFalse_DeletesOnlyUnpinnedOldEntries() {
         // Arrange
         int hours = 48;
-        when(clipboardRepository.deleteByTimestampBeforeAndIsPinnedFalse(any(LocalDateTime.class))).thenReturn(3L);
+        when(clipboardRepository.deleteByTimestampBeforeAndIsPinnedFalse(any(LocalDateTime.class))).thenReturn(3);
 
         // Act
         long result = clipboardService.deleteOlderThan(hours, false);

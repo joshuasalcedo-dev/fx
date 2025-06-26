@@ -4,6 +4,7 @@ package io.joshuasalcedo.fx.common.utility;
 
 import io.joshuasalcedo.fx.Launcher;
 import javafx.fxml.FXMLLoader;
+import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -133,6 +134,29 @@ public final class ResourceUtility {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Launcher.class.getResource(resolve(fxmlPath)));
+            return fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load FXML file: " + fxmlPath, e);
+        }
+    }
+
+    /**
+     * Loads an FXML file with Spring-managed controllers and returns the root node.
+     * 
+     * <p>This method resolves the FXML resource path and loads the FXML file with
+     * Spring context support for controller dependency injection.</p>
+     * 
+     * @param <T> the type of the root node
+     * @param fxmlPath the path to the FXML file
+     * @param applicationContext the Spring application context for controller creation
+     * @return the loaded root node
+     * @throws RuntimeException if the FXML file cannot be loaded
+     */
+    public static <T> T loadFxmlWithSpring(String fxmlPath, ApplicationContext applicationContext) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(Launcher.class.getResource(resolve(fxmlPath)));
+            fxmlLoader.setControllerFactory(applicationContext::getBean);
             return fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException("Failed to load FXML file: " + fxmlPath, e);

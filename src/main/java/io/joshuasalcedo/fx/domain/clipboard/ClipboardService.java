@@ -125,7 +125,7 @@ public class ClipboardService {
                 log.info("Deleted all {} clipboard entries", countBefore);
                 return countBefore;
             } else {
-                long deletedCount = clipboardRepository.deleteByIsPinnedFalse();
+                int deletedCount = clipboardRepository.deleteByIsPinnedFalse();
                 log.info("Deleted {} unpinned clipboard entries, {} pinned entries preserved", 
                         deletedCount, countBefore - deletedCount);
                 return deletedCount;
@@ -143,6 +143,8 @@ public class ClipboardService {
     public long deleteAll() {
         return deleteAll(false);
     }
+
+
 
     /**
      * Deletes a specific clipboard entry
@@ -295,6 +297,22 @@ public class ClipboardService {
         if (text == null) return "null";
         if (text.length() <= maxLength) return text;
         return text.substring(0, maxLength) + "...";
+    }
+
+    public void delete(Long id) {
+        clipboardRepository.deleteById(id);
+    }
+
+    public List<ClipboardEntry> getAllEntries() {
+        return clipboardRepository.findByTimestampAfterOrderByTimestampDesc(LocalDateTime.now());
+    }
+
+    public void save(ClipboardEntry entry) {
+        clipboardRepository.save(entry);
+    }
+
+    public void deleteAllUnpinned() {
+        deleteAll(false);
     }
 
     /**

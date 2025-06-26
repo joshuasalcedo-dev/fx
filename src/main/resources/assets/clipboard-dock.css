@@ -1,0 +1,364 @@
+/* Windows 11 Clipboard Dock Styling */
+
+/* Root styling - transparent for docking */
+.clipboard-root {
+    -fx-background-color: transparent;
+}
+
+/* Dock container - main background */
+.dock-container {
+    -fx-background-color: #202020;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0, 0, 4);
+}
+
+/* Remove tab header for cleaner look */
+.clipboard-dock .tab-header-area {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.clipboard-dock .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.clipboard-dock .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Main panel */
+.clipboard-panel {
+    -fx-background-color: #202020;
+    -fx-background-radius: 8;
+    -fx-font-family: "Segoe UI", "SF Pro Display", system-ui, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* Header styling */
+.clipboard-header {
+    -fx-background-color: transparent;
+    -fx-alignment: center-left;
+}
+
+.header-title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+}
+
+/* Header separator */
+.header-separator {
+    -fx-background-color: #404040;
+    -fx-padding: 0 16 0 16;
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+.header-separator .line {
+    -fx-background-color: #404040;
+    -fx-border-color: transparent;
+}
+
+/* Text button style (Windows 11 clear all button) */
+.text-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 12px;
+    -fx-font-weight: 400;
+    -fx-padding: 4 8 4 8;
+    -fx-cursor: hand;
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+}
+
+.text-button:hover {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #353535;
+}
+
+.text-button:pressed {
+    -fx-background-color: #404040;
+}
+
+/* Scrollpane styling */
+.entries-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.entries-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.entries-scroll .content {
+    -fx-background-color: transparent;
+}
+
+/* Entry container */
+.entries-container {
+    -fx-background-color: transparent;
+}
+
+/* Individual clipboard entry */
+.clipboard-entry {
+    -fx-background-color: #2D2D2D;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+    -fx-cursor: hand;
+}
+
+.clipboard-entry:hover {
+    -fx-background-color: #353535;
+}
+
+.clipboard-entry:pressed {
+    -fx-background-color: #404040;
+}
+
+.clipboard-entry.copying {
+    -fx-background-color: #404040;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 4, 0, 0, 0);
+}
+
+/* Entry content text */
+.entry-content {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: 400;
+    -fx-wrap-text: true;
+}
+
+/* Entry footer */
+.entry-footer {
+    -fx-alignment: center-left;
+}
+
+/* Entry metadata (timestamp) */
+.entry-meta {
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 11px;
+    -fx-font-weight: 400;
+}
+
+/* Icon buttons (menu and pin) */
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 4;
+    -fx-cursor: hand;
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+    -fx-min-width: 24;
+    -fx-min-height: 24;
+    -fx-pref-width: 24;
+    -fx-pref-height: 24;
+}
+
+.icon-button:hover {
+    -fx-background-color: #404040;
+}
+
+.icon-button:pressed {
+    -fx-background-color: #505050;
+}
+
+/* Menu button (three dots) */
+.menu-button {
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.menu-button:hover {
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Pin button */
+.pin-button .ikonli-font-icon {
+    -fx-icon-color: #B0B0B0;
+}
+
+.pin-button:hover .ikonli-font-icon {
+    -fx-icon-color: #FFFFFF;
+}
+
+.pin-button.pinned .ikonli-font-icon {
+    -fx-icon-color: #FFFFFF;
+}
+
+/* Empty state */
+.empty-state {
+    -fx-alignment: center;
+}
+
+.empty-icon {
+    -fx-icon-color: #606060;
+    -fx-opacity: 0.6;
+}
+
+.empty-title {
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+}
+
+.empty-subtitle {
+    -fx-text-fill: #808080;
+    -fx-font-size: 12px;
+    -fx-font-weight: 400;
+    -fx-text-alignment: center;
+}
+
+/* Scrollbar styling (Windows 11 style) */
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-pref-width: 8;
+    -fx-pref-height: 8;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #606060;
+    -fx-background-radius: 8;
+    -fx-min-width: 6;
+    -fx-min-height: 20;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #808080;
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #A0A0A0;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-pref-width: 0;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+}
+
+/* Context menu for entries */
+.context-menu {
+    -fx-background-color: #2D2D2D;
+    -fx-border-color: #404040;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0, 0, 4);
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12px;
+    -fx-font-weight: 400;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.menu-item:focused {
+    -fx-background-color: #404040;
+}
+
+.menu-item:hover {
+    -fx-background-color: #404040;
+}
+
+.menu-item .ikonli-font-icon {
+    -fx-icon-color: #B0B0B0;
+}
+
+.menu-item:focused .ikonli-font-icon,
+.menu-item:hover .ikonli-font-icon {
+    -fx-icon-color: #FFFFFF;
+}
+
+/* Tooltip styling */
+.tooltip {
+    -fx-background-color: #2D2D2D;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 11px;
+    -fx-font-weight: 400;
+    -fx-background-radius: 4;
+    -fx-padding: 4 8 4 8;
+    -fx-border-color: #404040;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2);
+}
+
+/* Detached window styling */
+.detached-window {
+    -fx-background-color: transparent;
+}
+
+/* Focus and selection states - minimal as per Windows 11 */
+.focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Text selection */
+.text-input:focused {
+    -fx-highlight-fill: #4A90E2;
+    -fx-highlight-text-fill: #FFFFFF;
+}
+
+/* Remove default focus indicators */
+.button:focused,
+.toggle-button:focused {
+    -fx-background-color: inherit;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+/* Ensure proper transparency for docking */
+.split-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.split-pane .split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+
+/* Tab pane styling for seamless integration */
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.tab {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}

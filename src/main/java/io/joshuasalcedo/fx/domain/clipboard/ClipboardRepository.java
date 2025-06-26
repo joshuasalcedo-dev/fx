@@ -30,14 +30,14 @@ interface ClipboardRepository extends JpaRepository<ClipboardEntry, Long> {
     // Delete methods
     @Modifying
     @Query("DELETE FROM ClipboardEntry e WHERE e.isPinned = false")
-    long deleteByIsPinnedFalse();
+    int deleteByIsPinnedFalse();
     
     @Modifying
-    long deleteByTimestampBefore(LocalDateTime timestamp);
+    int deleteByTimestampBefore(LocalDateTime timestamp);
     
     @Modifying
     @Query("DELETE FROM ClipboardEntry e WHERE e.timestamp < :timestamp AND e.isPinned = false")
-    long deleteByTimestampBeforeAndIsPinnedFalse(@Param("timestamp") LocalDateTime timestamp);
+    int deleteByTimestampBeforeAndIsPinnedFalse(@Param("timestamp") LocalDateTime timestamp);
     
     // Custom queries for statistics
     @Query("SELECT MIN(e.timestamp) FROM ClipboardEntry e")

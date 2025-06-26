@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.panemu.tiwulfx.control.dock.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="io.joshuasalcedo.fx.application.clipboard.ClipboardDockController"
+            styleClass="clipboard-root"
+            prefWidth="360.0"
+            prefHeight="800.0">
+    
+    <!-- For docking capability -->
+    <center>
+        <SplitPane orientation="VERTICAL" styleClass="dock-container">
+            <DetachableTabPane fx:id="dockTabPane" 
+                              tabClosingPolicy="UNAVAILABLE"
+                              styleClass="clipboard-dock">
+                <Tab text="Clipboard" closable="false">
+                    <VBox styleClass="clipboard-panel" spacing="0">
+                        <!-- Header -->
+                        <HBox styleClass="clipboard-header" alignment="CENTER_LEFT" spacing="0">
+                            <padding>
+                                <Insets bottom="12.0" left="16.0" right="16.0" top="16.0"/>
+                            </padding>
+                            <Label text="Clipboard" styleClass="header-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Clear all" 
+                                    styleClass="text-button"
+                                    onAction="#clearAll"/>
+                        </HBox>
+                        
+                        <Separator styleClass="header-separator"/>
+                        
+                        <!-- Content area with scroll and empty state -->
+                        <StackPane VBox.vgrow="ALWAYS">
+                            <!-- Scrollable content -->
+                            <ScrollPane fitToWidth="true" 
+                                        styleClass="entries-scroll"
+                                        hbarPolicy="NEVER"
+                                        vbarPolicy="AS_NEEDED">
+                                <VBox fx:id="entriesContainer" 
+                                      styleClass="entries-container"
+                                      spacing="8">
+                                    <padding>
+                                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                                    </padding>
+                                </VBox>
+                            </ScrollPane>
+                            
+                            <!-- Empty state (shown when no entries) -->
+                            <VBox fx:id="emptyState" 
+                                  styleClass="empty-state" 
+                                  alignment="CENTER" 
+                                  spacing="16"
+                                  visible="true"
+                                  managed="true">
+                                <padding>
+                                    <Insets bottom="40.0" left="20.0" right="20.0" top="40.0"/>
+                                </padding>
+                                <FontIcon iconLiteral="mdi2c-clipboard-text-outline" 
+                                          iconSize="48" 
+                                          styleClass="empty-icon"/>
+                                <Label text="Nothing here yet" styleClass="empty-title"/>
+                                <Label text="Copy something to see it here" 
+                                       styleClass="empty-subtitle"
+                                       textAlignment="CENTER"
+                                       wrapText="true"/>
+                            </VBox>
+                        </StackPane>
+                        
+                        <!-- Bottom padding for visual balance -->
+                        <Region prefHeight="8"/>
+                    </VBox>
+                </Tab>
+            </DetachableTabPane>
+        </SplitPane>
+    </center>
+</BorderPane>
