@@ -1,8 +1,12 @@
 package io.joshuasalcedo.fx;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.Dracula;
 import atlantafx.base.theme.PrimerLight;
+import io.joshuasalcedo.fx.common.utility.ResourceUtility;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -10,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignS;
 import org.slf4j.Logger;
@@ -28,7 +33,7 @@ import java.util.Properties;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-
+@Component
 public class Launcher extends Application {
 
     private ConfigurableApplicationContext applicationContext;
@@ -45,15 +50,19 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         logger.debug("Starting MonorepoManagerFxApplication");
+        
+        // Enable font smoothing and high DPI support
+        System.setProperty("prism.lcdtext", "false");
+        System.setProperty("prism.text", "t2k");
+        System.setProperty("prism.subpixeltext", "false");
+        
+        Application.setUserAgentStylesheet(new Dracula().getUserAgentStylesheet());
         applicationContext.publishEvent(new StageReadyEvent(stage));
-
     }
 
     @Override
     public void stop() throws Exception {
         logger.debug("Stopping");
-        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-
         applicationContext.close();
         Platform.exit();
     }
@@ -75,9 +84,7 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
     private final static Logger logger = LoggerFactory.getLogger(StageInitializer.class);
     static final String ASSETS_DIR = "/assets/";
 
-    static final String APP_ICON_PATH = Objects.requireNonNull(
-            Launcher.class.getResource(ASSETS_DIR + "icons/app-icon.png")
-    ).toExternalForm();
+    static final String APP_ICON_PATH = ResourceUtility.getResourceAsString(ASSETS_DIR + "icons/app-icon.png");
 
     static final String APP_PROPERTIES_PATH = "/application.properties";
 
@@ -87,15 +94,27 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
         // obtain application properties from pom.xml
         loadApplicationProperties();
 
-        var scene = new Scene(createWelcomePane(), 800, 600);
-        scene.getStylesheets().add(ASSETS_DIR + "index.css");
+        var scene = new Scene(clipboardPane());
+        scene.getStylesheets().addAll(
+                ResourceUtility.getResourceAsString(ASSETS_DIR + "index.css"),
+                ResourceUtility.getResourceAsString(ASSETS_DIR + "clipboard-page.css")
+        );
+
 
         stage.setScene(scene);
-        stage.setTitle(System.getProperty("app.name"));
+        stage.setTitle(System.getProperty("devfx"));
         stage.getIcons().add(new Image(APP_ICON_PATH));
         stage.setOnCloseRequest(t -> Platform.exit());
-        stage.setMaxWidth(1280);
-        stage.setMaxHeight(900);
+        
+        // Set utility window dimensions and type
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setWidth(400);
+        stage.setHeight(600);
+        stage.setMinWidth(350);
+        stage.setMinHeight(500);
+        stage.setResizable(true);
+        stage.setAlwaysOnTop(false);
+
 
         Platform.runLater(() -> {
             stage.show();
@@ -103,24 +122,15 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
         });
     }
 
-    private Pane createWelcomePane() {
-        var root = new VBox();
-        root.getStyleClass().add("welcome");
-        root.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(
-                new FontIcon(MaterialDesignS.SCHOOL),
-                new Label(
-                        "Hi, this is the AtlantaFX starter project. Check out the README for a quick start and happy coding.")
-        );
-
-        return root;
+    private Pane clipboardPane() {
+        return ResourceUtility.loadFxml("/io/joshuasalcedo/fx/presentation/clipboard-page.fxml");
     }
 
     private void loadApplicationProperties() {
         try {
             Properties properties = new Properties();
             properties.load(new InputStreamReader(
-                    Objects.requireNonNull(getClass().getResourceAsStream(APP_PROPERTIES_PATH)),
+                    ResourceUtility.getResourceAsStream(APP_PROPERTIES_PATH),
                     UTF_8
             ));
             properties.forEach((key, value) -> System.setProperty(
@@ -132,7 +142,6 @@ class StageInitializer implements ApplicationListener<StageReadyEvent> {
         }
     }
 }
-
 class StageReadyEvent extends ApplicationEvent {
     private final Logger logger = LoggerFactory.getLogger(StageReadyEvent.class);
 

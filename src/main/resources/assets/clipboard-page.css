@@ -1,0 +1,365 @@
+/* AtlantaFX Clipboard Manager - Vertical Utility Window */
+
+/* Root container */
+.clipboard-manager {
+    -fx-background-color: -color-bg-default;
+    -fx-font-family: -fx-font-family;
+    -fx-font-size: 12px;
+    -fx-text-fill: -color-fg-default;
+}
+
+/* Header Section */
+.header {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 0 1 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.header-icon {
+    -fx-icon-color: -color-accent-emphasis;
+}
+
+.header-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -color-fg-default;
+}
+
+.header-stats {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-fg-muted;
+}
+
+/* Search Section */
+.search-section {
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 0 1 0;
+}
+
+.search-field {
+    -fx-font-size: 12px;
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+    -fx-prompt-text-fill: -color-fg-muted;
+}
+
+.search-field:focused {
+    -fx-border-color: -color-accent-emphasis;
+    -fx-border-width: 2;
+}
+
+/* Filter Buttons */
+.filter-button {
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
+    -fx-padding: 6 12;
+    -fx-text-fill: -color-fg-muted;
+    -fx-cursor: hand;
+}
+
+.filter-button:selected {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-on-emphasis;
+    -fx-border-color: -color-accent-emphasis;
+}
+
+.filter-button:hover:not(:selected) {
+    -fx-background-color: -color-bg-subtle;
+    -fx-text-fill: -color-fg-default;
+}
+
+.filter-button-standalone {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+/* Content Area */
+.content-scroll {
+    -fx-background-color: -color-bg-default;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: as-needed;
+}
+
+.content-scroll .viewport {
+    -fx-background-color: -color-bg-default;
+}
+
+.content-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.content-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.content-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: -color-fg-muted;
+    -fx-background-radius: 4;
+    -fx-opacity: 0.3;
+}
+
+.content-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-opacity: 0.6;
+}
+
+/* Clipboard List */
+.clipboard-list {
+    -fx-background-color: -color-bg-default;
+    -fx-padding: 0;
+}
+
+/* Empty State */
+.empty-state {
+    -fx-padding: 40 20;
+    -fx-alignment: CENTER;
+}
+
+.empty-icon {
+    -fx-icon-color: -color-fg-muted;
+    -fx-opacity: 0.6;
+}
+
+.empty-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-fill: -color-fg-muted;
+}
+
+.empty-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: -color-fg-subtle;
+}
+
+/* Clipboard Entry (to be used dynamically) */
+.clipboard-entry {
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 16;
+    -fx-cursor: hand;
+}
+
+.clipboard-entry:hover {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.clipboard-entry:selected {
+    -fx-background-color: -color-accent-subtle;
+    -fx-border-color: -color-accent-emphasis;
+}
+
+.clipboard-entry.pinned {
+    -fx-background-color: derive(-color-warning-subtle, 95%);
+}
+
+.clipboard-entry.pinned:hover {
+    -fx-background-color: derive(-color-warning-subtle, 90%);
+}
+
+.entry-content {
+    -fx-font-size: 12px;
+    -fx-text-fill: -color-fg-default;
+    -fx-wrap-text: true;
+}
+
+.entry-preview {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-fg-muted;
+    -fx-wrap-text: false;
+}
+
+.entry-meta {
+    -fx-font-size: 10px;
+    -fx-text-fill: -color-fg-subtle;
+}
+
+/* Actions Bar */
+.actions-bar {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1 0 0 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.action-button {
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+    -fx-text-fill: -color-fg-default;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.action-button-primary {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-background-color: -color-accent-subtle;
+    -fx-border-color: -color-accent-emphasis;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-text-fill: -color-accent-fg;
+    -fx-cursor: hand;
+}
+
+.action-button-primary:hover {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-on-emphasis;
+}
+
+.action-menu {
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-on-emphasis;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+    -fx-cursor: hand;
+}
+
+.action-menu:hover {
+    -fx-background-color: derive(-color-accent-emphasis, -10%);
+}
+
+.action-menu .arrow {
+    -fx-background-color: -color-fg-on-emphasis;
+}
+
+/* Icon Buttons */
+.button-icon {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 6;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.button-icon:hover {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.button-icon .ikonli-font-icon {
+    -fx-icon-color: -color-fg-muted;
+}
+
+.button-icon:hover .ikonli-font-icon {
+    -fx-icon-color: -color-fg-default;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    -fx-progress-color: -color-accent-emphasis;
+    -fx-pref-width: 16;
+    -fx-pref-height: 16;
+}
+
+/* Context Menu */
+.context-menu {
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
+.menu-item {
+    -fx-font-size: 11px;
+    -fx-padding: 6 10;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.menu-item:focused {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-on-emphasis;
+}
+
+.menu-item .ikonli-font-icon {
+    -fx-icon-color: -color-fg-muted;
+}
+
+.menu-item:focused .ikonli-font-icon {
+    -fx-icon-color: -color-fg-on-emphasis;
+}
+
+.danger-menu-item:focused {
+    -fx-background-color: -color-danger-emphasis;
+    -fx-text-fill: -color-fg-on-emphasis;
+}
+
+/* Tooltip */
+.tooltip {
+    -fx-background-color: -color-bg-default;
+    -fx-text-fill: -color-fg-default;
+    -fx-font-size: 10px;
+    -fx-background-radius: 4;
+    -fx-padding: 4 8;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0, 0, 1);
+}
+
+/* Text Selection */
+.text-input:focused {
+    -fx-highlight-fill: -color-accent-subtle;
+    -fx-highlight-text-fill: -color-fg-default;
+}
+
+/* High DPI and Font Smoothing */
+.root {
+    -fx-font-smoothing-type: gray;
+}
+
+/* AtlantaFX specific overrides for better integration */
+.clipboard-manager .button {
+    -fx-font-size: 11px;
+}
+
+.clipboard-manager .toggle-button {
+    -fx-font-size: 11px;
+}
+
+.clipboard-manager .text-field {
+    -fx-font-size: 12px;
+}
+
+.clipboard-manager .label {
+    -fx-font-size: 12px;
+}
+
+/* Ensure proper contrast in dark theme */
+.clipboard-manager .text-field .text {
+    -fx-fill: -color-fg-default;
+}
+
+.clipboard-manager .button .text {
+    -fx-fill: inherit;
+}
+
+/* Scrollpane corner */
+.scroll-pane .corner {
+    -fx-background-color: -color-bg-default;
+}

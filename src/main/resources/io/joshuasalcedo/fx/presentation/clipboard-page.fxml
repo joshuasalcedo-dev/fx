@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="io.joshuasalcedo.fx.application.clipboard.ClipboardApplication"
+      prefWidth="400.0"
+      prefHeight="600.0"
+      styleClass="clipboard-manager">
+
+    <!-- Header Section -->
+    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="header">
+        <padding>
+            <Insets bottom="12.0" left="16.0" right="16.0" top="12.0"/>
+        </padding>
+        <FontIcon iconLiteral="mdi2c-clipboard-text-multiple-outline" iconSize="20" styleClass="header-icon"/>
+        <Label text="Clipboard Manager" styleClass="header-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="statsLabel" styleClass="header-stats" text="0 entries"/>
+    </HBox>
+
+    <!-- Search and Filter Section -->
+    <VBox spacing="8.0" styleClass="search-section">
+        <padding>
+            <Insets bottom="8.0" left="16.0" right="16.0" top="8.0"/>
+        </padding>
+        
+        <!-- Search Field -->
+        <HBox alignment="CENTER_LEFT" spacing="8.0">
+            <TextField fx:id="searchField"
+                       promptText="Search clipboard..."
+                       styleClass="search-field"
+                       HBox.hgrow="ALWAYS"/>
+            <Button fx:id="clearSearchBtn"
+                    styleClass="button-icon"
+                    onAction="#clearSearch">
+                <graphic>
+                    <FontIcon iconLiteral="mdi2c-close" iconSize="14"/>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="Clear search"/>
+                </tooltip>
+            </Button>
+        </HBox>
+        
+        <!-- Filter Buttons -->
+        <HBox alignment="CENTER_LEFT" spacing="8.0">
+            <ToggleButton fx:id="showAllToggle"
+                          text="All"
+                          selected="true"
+                          styleClass="filter-button filter-button-standalone">
+                <toggleGroup>
+                    <ToggleGroup fx:id="filterGroup"/>
+                </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="showPinnedToggle"
+                          text="Pinned"
+                          toggleGroup="$filterGroup"
+                          styleClass="filter-button filter-button-standalone"/>
+            <ToggleButton fx:id="showRecentToggle"
+                          text="Recent"
+                          toggleGroup="$filterGroup"
+                          styleClass="filter-button filter-button-standalone"/>
+        </HBox>
+    </VBox>
+
+    <!-- Main Content Area -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="content-scroll">
+        <VBox fx:id="clipboardListContainer" spacing="1.0" styleClass="clipboard-list">
+            <!-- Clipboard entries will be added here dynamically -->
+            
+            <!-- Empty State (shown when no entries) -->
+            <VBox fx:id="emptyState" alignment="CENTER" spacing="12.0" styleClass="empty-state" visible="true">
+                <FontIcon iconLiteral="mdi2c-clipboard-text-outline" iconSize="48" styleClass="empty-icon"/>
+                <Label text="No clipboard entries" styleClass="empty-title"/>
+                <Label text="Copy something to get started" styleClass="empty-subtitle"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Quick Actions Bar -->
+    <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="actions-bar">
+        <padding>
+            <Insets bottom="12.0" left="16.0" right="16.0" top="12.0"/>
+        </padding>
+        
+        <Button fx:id="refreshBtn"
+                text="Refresh"
+                styleClass="action-button-primary"
+                onAction="#refreshEntries">
+            <graphic>
+                <FontIcon iconLiteral="mdi2r-refresh" iconSize="14"/>
+            </graphic>
+        </Button>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <MenuButton text="Actions" styleClass="action-menu">
+            <graphic>
+                <FontIcon iconLiteral="mdi2m-menu" iconSize="14"/>
+            </graphic>
+            <items>
+                <MenuItem text="Clear All" onAction="#deleteAll">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2d-delete-forever" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+                <MenuItem text="Clear Unpinned" onAction="#deleteAllUnpinned">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2d-delete-sweep" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+                <SeparatorMenuItem/>
+                <MenuItem text="Export Selected" onAction="#exportSelected">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2e-export" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+                <MenuItem text="Settings" onAction="#showSettings">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2c-cog" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+            </items>
+        </MenuButton>
+        
+        <ProgressIndicator fx:id="loadingIndicator"
+                           visible="false"
+                           styleClass="loading-spinner"/>
+    </HBox>
+
+    <!-- Context Menu for Entries -->
+    <fx:define>
+        <ContextMenu fx:id="entryContextMenu">
+            <items>
+                <MenuItem text="Copy" onAction="#copyContent">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2c-content-copy" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+                <MenuItem fx:id="pinMenuItem" text="Pin" onAction="#togglePin">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2p-pin" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+                <SeparatorMenuItem/>
+                <MenuItem text="Delete" onAction="#deleteEntry" styleClass="danger-menu-item">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi2d-delete" iconSize="14"/>
+                    </graphic>
+                </MenuItem>
+            </items>
+        </ContextMenu>
+    </fx:define>
+</VBox>

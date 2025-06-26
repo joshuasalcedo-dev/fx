@@ -1,25 +1,16 @@
-@font-face {
-    font-family: "Montserrat";
-    src: url('fonts/Montserrat-Regular.ttf');
-}
+/* AtlantaFX Integration CSS */
 
 .root {
-    -fx-font-family: "Montserrat";
-    -fx-font-size: 13pt;
+    -fx-font-smoothing-type: gray;
+    -fx-font-size: 12px;
 }
 
-.welcome {
-    -fx-spacing: 20px;
-    -fx-padding: 50px;
-    -fx-alignment: center;
+/* High DPI Support */
+.text {
+    -fx-font-smoothing-type: gray;
 }
 
-.welcome .ikonli-font-icon {
-    -fx-icon-size: 64px;
-}
-
-.welcome .label {
-    -fx-wrap-text: true;
-    -fx-pref-width: 450px;
-    -fx-text-alignment: center;
+/* Consistent font rendering */
+.label, .button, .text-field, .toggle-button {
+    -fx-font-smoothing-type: gray;
 }

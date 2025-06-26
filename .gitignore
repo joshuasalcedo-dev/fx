@@ -186,3 +186,4 @@ $RECYCLE.BIN/
 *.local.sh
 telekit-desktop/dev/**
 /springfx-starter/
+/atlantafx/

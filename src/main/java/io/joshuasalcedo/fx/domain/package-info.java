@@ -18,6 +18,12 @@
  * <p>The domain model should be kept clean of infrastructure concerns and should focus
  * solely on expressing the business domain and its rules.</p>
  * 
+ * <p>Subpackages include:
+ * <ul>
+ *   <li>clipboard - Contains domain model classes and services for managing clipboard functionality</li>
+ * </ul>
+ * </p>
+ * 
  * @since 1.0.0-SNAPSHOT
  */
 package io.joshuasalcedo.fx.domain;
