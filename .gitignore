@@ -185,3 +185,4 @@ $RECYCLE.BIN/
 *.local.bat
 *.local.sh
 telekit-desktop/dev/**
+/springfx-starter/
