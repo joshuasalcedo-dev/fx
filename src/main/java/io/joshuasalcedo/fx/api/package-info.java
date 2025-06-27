@@ -16,4 +16,4 @@
  * 
  * @since 1.0.0-SNAPSHOT
  */
-package io.joshuasalcedo.fx.application;
+package io.joshuasalcedo.fx.api;

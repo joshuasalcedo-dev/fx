@@ -1,4 +1,4 @@
-package io.joshuasalcedo.fx.infrastructure.clipboard;
+package io.joshuasalcedo.fx.infrastructure.configuration;
 
 import io.joshuasalcedo.clipboard.core.ClipboardListenerProvider;
 import io.joshuasalcedo.clipboard.core.ClipboardListenerProviderFactory;

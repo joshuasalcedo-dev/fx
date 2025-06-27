@@ -7,7 +7,7 @@
  * 
  * <p>The application follows a layered architecture pattern with the following packages:
  * <ul>
- *   <li>{@link io.joshuasalcedo.fx.application} - Contains application services and business logic</li>
+ *   <li>{@link io.joshuasalcedo.fx.api} - Contains application services and business logic</li>
  *   <li>{@link io.joshuasalcedo.fx.common} - Contains common utilities and shared components</li>
  *   <li>{@link io.joshuasalcedo.fx.domain} - Contains domain model classes and business rules</li>
  *   <li>{@link io.joshuasalcedo.fx.infrastructure} - Contains technical infrastructure components</li>

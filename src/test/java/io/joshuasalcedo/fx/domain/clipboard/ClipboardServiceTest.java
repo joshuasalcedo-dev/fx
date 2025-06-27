@@ -1,11 +1,14 @@
 package io.joshuasalcedo.fx.domain.clipboard;
 
+import io.joshuasalcedo.clipboard.core.ClipboardMonitor;
+import io.joshuasalcedo.fx.infrastructure.events.ClipboardRunner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -28,9 +31,14 @@ class ClipboardServiceTest {
 
     private ClipboardService clipboardService;
 
+    @Mock
+    private ClipboardMonitor clipboardMonitor;
+    @Mock
+    ApplicationEventPublisher applicationEventPublisher;
+
     @BeforeEach
     void setUp() {
-        clipboardService = new ClipboardService(clipboardRepository);
+        clipboardService = new ClipboardService(clipboardRepository,clipboardMonitor,applicationEventPublisher);
     }
 
     @Test

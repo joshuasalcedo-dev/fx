@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-interface ClipboardRepository extends JpaRepository<ClipboardEntry, Long> {
+public interface ClipboardRepository extends JpaRepository<ClipboardEntry, Long> {
     
     // Find methods
     List<ClipboardEntry> findByIsPinnedTrueOrderByTimestampDesc();
+    
+    List<ClipboardEntry> findByIsPinnedFalseOrderByTimestampDesc();
     
     List<ClipboardEntry> findByTimestampAfterOrderByTimestampDesc(LocalDateTime timestamp);
     

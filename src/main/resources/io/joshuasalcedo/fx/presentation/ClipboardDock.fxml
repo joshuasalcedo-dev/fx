@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17" 
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="io.joshuasalcedo.fx.application.clipboard.ClipboardDockController"
+            fx:controller="io.joshuasalcedo.fx.api.clipboard.ClipboardDockController"
             styleClass="clipboard-root"
             prefWidth="360.0"
             prefHeight="800.0">

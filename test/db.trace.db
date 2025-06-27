@@ -376,5 +376,5 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/JoshuaS
 org.h2.jdbc.JdbcSQLDataException: Value too long for column "CONTENT_HASH CHARACTER VARYING(255)": "U&'dEntries(ClipboardDockController.java:220)\\000d\\000aException: NullPointerExc... (3543)"; SQL statement:
 insert into clipboard_entries (content,content_hash,content_length,content_type,is_pinned,timestamp,id) values (?,?,?,?,?,?,default) [22001-232]
 2025-06-27 01:05:40.571433+08:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Value too long for column "CONTENT_HASH CHARACTER VARYING(255)": "U&'    at io.joshuasalcedo.fx.infrastructure.clipboard.ClipboardRunner.handleCli... (1263)"; SQL statement:
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "CONTENT_HASH CHARACTER VARYING(255)": "U&'    at io.joshuasalcedo.fx.infrastructure.events.ClipboardRunner.handleCli... (1263)"; SQL statement:
 insert into clipboard_entries (content,content_hash,content_length,content_type,is_pinned,timestamp,id) values (?,?,?,?,?,?,default) [22001-232]
