@@ -1,6 +1,7 @@
 package io.joshuasalcedo.fx.domain.clipboard;
 
 import io.joshuasalcedo.clipboard.core.ClipboardMonitor;
+import io.joshuasalcedo.fx.api.ClipboardWebSocketController;
 import io.joshuasalcedo.fx.infrastructure.events.ClipboardRunner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,13 +33,16 @@ class ClipboardServiceTest {
     private ClipboardService clipboardService;
 
     @Mock
+    private ClipboardWebSocketController clipboardWebSocketController;
+
+    @Mock
     private ClipboardMonitor clipboardMonitor;
     @Mock
     ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
     void setUp() {
-        clipboardService = new ClipboardService(clipboardRepository,clipboardMonitor,applicationEventPublisher);
+        clipboardService = new ClipboardService(clipboardRepository,clipboardMonitor,applicationEventPublisher,clipboardWebSocketController);
     }
 
     @Test
@@ -300,7 +304,7 @@ class ClipboardServiceTest {
         );
         Page<ClipboardEntry> page = new PageImpl<>(entries, pageable, entries.size());
 
-        when(clipboardRepository.findAll(pageable)).thenReturn(page);
+        when(clipboardRepository.findAllOrderByTimestampDesc(pageable)).thenReturn(page);
 
         // Act
         Page<ClipboardEntry> result = clipboardService.findAll(pageable);

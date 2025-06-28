@@ -22,15 +22,13 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <java.version>21</java.version>
-        <javafx.version>22</javafx.version>
 
-        <app.name>AtlantaFX Starter</app.name>
+        <app.name>Clipboard App</app.name>
         <app.version>${project.version}</app.version>
         <app.moduleName>starter</app.moduleName>
-        <app.mainClass>io.joshuasalcedo.fx.Launcher</app.mainClass>
+        <app.mainClass>io.joshuasalcedo.fx.ClipboardApplication</app.mainClass>
 
-        <lib.atlantafx.version>2.0.1</lib.atlantafx.version>
-        <lib.ikonli.version>12.3.1</lib.ikonli.version>
+        <!-- JavaFX-related properties removed -->
         <lib.jspecify.version>1.0.0</lib.jspecify.version>
         <test.assertj.version>3.26.3</test.assertj.version>
         <test.junit.version>5.11.0</test.junit.version>
@@ -44,18 +42,7 @@
             <artifactId>clipboard-core</artifactId>
             <version>1.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.alexbodogit/AnchorFX -->
-        <!-- https://mvnrepository.com/artifact/com.panemu/tiwulfx-dock -->
-        <dependency>
-            <groupId>com.panemu</groupId>
-            <artifactId>tiwulfx-dock</artifactId>
-            <version>0.5</version>
-        </dependency>
+        <!-- JavaFX dependencies removed -->
         <dependency>
             <groupId>io.joshuasalcedo</groupId>
             <artifactId>springboot-core-starter</artifactId>
@@ -72,26 +59,7 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.8.9</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.mkpaz</groupId>
-            <artifactId>atlantafx-base</artifactId>
-            <version>${lib.atlantafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-javafx</artifactId>
-            <version>${lib.ikonli.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-materialdesign2-pack</artifactId>
-            <version>${lib.ikonli.version}</version>
-        </dependency>
+        <!-- JavaFX and related UI dependencies removed -->
         <dependency>
             <groupId>org.jspecify</groupId>
             <artifactId>jspecify</artifactId>
@@ -204,110 +172,79 @@
                     <release>${java.version}</release>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
-                <configuration>
-                    <!--
-                        Gluon Maven plugin uses system (!not project or IDE!) JDK.
-                        You can use system property or env variable to override this version.
-                        mvm javafx:run -Djava.home=/path/to/jdk
-                    -->
-                    <executable>${java.home}/bin/java</executable>
-                    <mainClass>${app.mainClass}</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>run</id>
-                    </execution>
-                    <execution>
-                        <!--
-                        To launch application in debug mode:
-                        - run "mvn javafx:run@debug" (exposes port for remote debugging)
-                        - connect to the JVM via IDE remote debugging tool using exactly the same agentlib option as below
-                        -->
-                        <id>debug</id>
-                        <configuration>
-                            <options>
-                                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005</option>
-                            </options>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- JavaFX Maven plugin removed -->
 
-            <!-- Frontend Maven Plugin to build Next.js app -->
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.0</version>
-                <configuration>
-                    <workingDirectory>frontend</workingDirectory>
-                    <installDirectory>target</installDirectory>
-                </configuration>
-                <executions>
-                    <!-- Install Node and pnpm -->
-                    <execution>
-                        <id>install node and pnpm</id>
-                        <goals>
-                            <goal>install-node-and-pnpm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v20.11.0</nodeVersion>
-                            <pnpmVersion>v8.15.1</pnpmVersion>
-                        </configuration>
-                    </execution>
-                    <!-- Install dependencies -->
-                    <execution>
-                        <id>pnpm install</id>
-                        <goals>
-                            <goal>pnpm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <!-- Build the Next.js app -->
-                    <execution>
-                        <id>pnpm build</id>
-                        <goals>
-                            <goal>pnpm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <!-- Copy frontend build to resources/static -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-frontend-build</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/src/main/resources/static</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/frontend/out</directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
+<!--            &lt;!&ndash; Frontend Maven Plugin to build Next.js app &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>com.github.eirslett</groupId>-->
+<!--                <artifactId>frontend-maven-plugin</artifactId>-->
+<!--                <version>1.15.0</version>-->
+<!--                <configuration>-->
+<!--                    <workingDirectory>frontend</workingDirectory>-->
+<!--                    <installDirectory>target</installDirectory>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    &lt;!&ndash; Install Node and pnpm &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>install node and pnpm</id>-->
+<!--                        <goals>-->
+<!--                            <goal>install-node-and-pnpm</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <nodeVersion>v20.11.0</nodeVersion>-->
+<!--                            <pnpmVersion>v8.15.1</pnpmVersion>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    &lt;!&ndash; Install dependencies &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>pnpm install</id>-->
+<!--                        <goals>-->
+<!--                            <goal>pnpm</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <arguments>install</arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    &lt;!&ndash; Build the Next.js app &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>pnpm build</id>-->
+<!--                        <goals>-->
+<!--                            <goal>pnpm</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <arguments>run build</arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+<!--            &lt;!&ndash; Copy frontend build to resources/static &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <version>3.3.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>copy-frontend-build</id>-->
+<!--                        <phase>generate-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-resources</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${basedir}/src/main/resources/static</outputDirectory>-->
+<!--                            <overwrite>true</overwrite>-->
+<!--                            <resources>-->
+<!--                                <resource>-->
+<!--                                    <directory>${basedir}/frontend/out</directory>-->
+<!--                                    <includes>-->
+<!--                                        <include>**/*</include>-->
+<!--                                    </includes>-->
+<!--                                </resource>-->
+<!--                            </resources>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

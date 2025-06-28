@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/local/clipboards")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(originPatterns = "*", maxAge = 3600)
 @Validated
 @Tag(name = "Clipboard", description = "Clipboard management API")
 public class ClipboardController {

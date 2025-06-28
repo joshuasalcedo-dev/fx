@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/local/clipboards/export")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(originPatterns = "*", maxAge = 3600)
 @Tag(name = "Clipboard Export", description = "API for exporting clipboard entries in different formats")
 public class ClipboardExportController {
     private static final Logger log = LoggerFactory.getLogger(ClipboardExportController.class);

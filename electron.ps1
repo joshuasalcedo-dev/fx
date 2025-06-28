@@ -2,7 +2,7 @@
 # This script automates the setup process from the tutorial
 
 param(
-    [string]$ProjectName = "clipboard-electron"
+    [string]$ProjectName = "clipboard-desktop"
 )
 
 Write-Host "Starting Electron + Next.js project setup..." -ForegroundColor Green
@@ -10,7 +10,7 @@ Write-Host "Project name: $ProjectName" -ForegroundColor Cyan
 
 # Step 1: Create Next.js app
 Write-Host "`nStep 1: Creating Next.js app..." -ForegroundColor Yellow
-npx create-next-app@latest $ProjectName --no-app --use-npm --no-tailwind --no-src-dir --import-alias "@/*"
+npx create-next-app@latest $ProjectName --no-app --use-npm --no-src-dir --import-alias "@/*"
 
 # Check if the project was created successfully
 if (-not (Test-Path $ProjectName)) {
@@ -158,6 +158,13 @@ Write-Host "electron-builder.yaml created successfully" -ForegroundColor Green
 New-Item -ItemType Directory -Path "resources" -Force | Out-Null
 Write-Host "Created resources directory for icons" -ForegroundColor Green
 
+
+# Install dependencies
+pnpm install
+
+# Run approve-builds
+pnpm approve-builds
+
 # Final message
 Write-Host "`n✅ Setup completed successfully!" -ForegroundColor Green
 Write-Host "`nNext steps:" -ForegroundColor Yellow
@@ -166,3 +173,5 @@ Write-Host "2. Update author and description in package.json" -ForegroundColor W
 Write-Host "3. Run 'npm run dev' to start development" -ForegroundColor White
 Write-Host "4. Run 'npm run build' to build executables" -ForegroundColor White
 Write-Host "`nProject structure created in: $(Get-Location)" -ForegroundColor Cyan
+
+pnpm run dev

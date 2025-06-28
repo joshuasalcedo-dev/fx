@@ -37,8 +37,8 @@ public class ClipboardService {
     private final ApplicationEventPublisher eventPublisher;
     private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
     
-    // Optional WebSocket controller for real-time updates
-    private ClipboardWebSocketController webSocketController;
+    // WebSocket controller for real-time updates
+    private final ClipboardWebSocketController webSocketController;
     
     // ClipboardRunner is injected after bean creation to avoid circular dependency
     @Autowired
@@ -46,19 +46,16 @@ public class ClipboardService {
 
     public ClipboardService(ClipboardRepository clipboardRepository, 
                           ClipboardMonitor clipboardMonitor,
-                          ApplicationEventPublisher eventPublisher) {
+                          ApplicationEventPublisher eventPublisher,
+                         ClipboardWebSocketController webSocketController) {
         this.clipboardRepository = clipboardRepository;
         this.clipboardMonitor = clipboardMonitor;
         this.eventPublisher = eventPublisher;
-        log.info("ClipboardService initialized");
+        this.webSocketController = webSocketController;
+        log.info("ClipboardService initialized with WebSocket support");
         
         // Schedule periodic cleanup of old entries
         scheduleAutomaticCleanup();
-    }
-    
-    // Setter for optional WebSocket controller
-    public void setWebSocketController(ClipboardWebSocketController webSocketController) {
-        this.webSocketController = webSocketController;
     }
 
     @EventListener
@@ -430,27 +427,19 @@ public class ClipboardService {
     // WebSocket notification methods
     
     private void notifyWebSocketNewEntry(ClipboardEntry entry) {
-        if (webSocketController != null) {
-            webSocketController.broadcastNewEntry(entry);
-        }
+        webSocketController.broadcastNewEntry(entry);
     }
     
     private void notifyWebSocketUpdate(ClipboardEntry entry) {
-        if (webSocketController != null) {
-            webSocketController.broadcastUpdate(entry);
-        }
+        webSocketController.broadcastUpdate(entry);
     }
     
     private void notifyWebSocketDelete(Long entryId) {
-        if (webSocketController != null) {
-            webSocketController.broadcastDelete(entryId);
-        }
+        webSocketController.broadcastDelete(entryId);
     }
     
     private void notifyWebSocketClear(boolean includePinned) {
-        if (webSocketController != null) {
-            webSocketController.broadcastClear(includePinned);
-        }
+        webSocketController.broadcastClear(includePinned);
     }
 
     // Export helper methods
