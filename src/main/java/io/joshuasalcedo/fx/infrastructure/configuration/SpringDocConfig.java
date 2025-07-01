@@ -11,39 +11,29 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * SpringDoc configuration for API documentation.
- */
+/** SpringDoc configuration for API documentation. */
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(
-                title = "Clipboard API",
-                version = "1.0.0",
-                description = "REST API for managing clipboard entries",
-                contact = @Contact(
-                        name = "Joshua Salcedo",
-                        url = "https://github.com/joshuasalcedo/fx"
-                ),
-                license = @License(
-                        name = "MIT License",
-                        url = "https://opensource.org/licenses/MIT"
-                )
-        ),
-        servers = {
-                @Server(url = "http://localhost:5000", description = "Local server")
-        }
-)
+    info =
+        @Info(
+            title = "Clipboard API",
+            version = "1.0.0",
+            description = "REST API for managing clipboard entries",
+            contact =
+                @Contact(name = "Joshua Salcedo", url = "https://github.com/joshuasalcedo/fx"),
+            license = @License(name = "MIT License", url = "https://opensource.org/licenses/MIT")),
+    servers = {@Server(url = "http://localhost:5000", description = "Local server")})
 public class SpringDocConfig {
-    
-    private static final Logger log = LoggerFactory.getLogger(SpringDocConfig.class);
-    
-    @Bean
-    public GroupedOpenApi publicApi() {
-        log.info("Configuring SpringDoc API documentation...");
-        return GroupedOpenApi.builder()
-                .group("clipboard-api")
-                .pathsToMatch("/api/**")
-                .packagesToScan("io.joshuasalcedo.fx.api")
-                .build();
-    }
+
+  private static final Logger log = LoggerFactory.getLogger(SpringDocConfig.class);
+
+  @Bean
+  public GroupedOpenApi publicApi() {
+    log.info("Configuring SpringDoc API documentation...");
+    return GroupedOpenApi.builder()
+        .group("clipboard-api")
+        .pathsToMatch("/api/**")
+        .packagesToScan("io.joshuasalcedo.fx.api")
+        .build();
+  }
 }

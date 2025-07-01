@@ -1,29 +1,30 @@
 /**
- * This package contains the domain model classes that represent the core business concepts and logic.
- * 
+ * This package contains the domain model classes that represent the core business concepts and
+ * logic.
+ *
  * <p>The domain layer is the heart of the application and encapsulates the business rules,
- * entities, value objects, and domain services. It represents the state and behavior
- * of the business domain independent of any technical implementation details.</p>
- * 
+ * entities, value objects, and domain services. It represents the state and behavior of the
+ * business domain independent of any technical implementation details.
+ *
  * <p>Key components in this package include:
+ *
  * <ul>
- *   <li>Entity classes representing business objects with identity</li>
- *   <li>Value objects representing immutable concepts</li>
- *   <li>Domain events representing significant occurrences in the domain</li>
- *   <li>Domain services containing business logic that doesn't naturally fit in entities</li>
- *   <li>Repository interfaces defining how domain objects are persisted</li>
+ *   <li>Entity classes representing business objects with identity
+ *   <li>Value objects representing immutable concepts
+ *   <li>Domain events representing significant occurrences in the domain
+ *   <li>Domain services containing business logic that doesn't naturally fit in entities
+ *   <li>Repository interfaces defining how domain objects are persisted
  * </ul>
- * </p>
- * 
- * <p>The domain model should be kept clean of infrastructure concerns and should focus
- * solely on expressing the business domain and its rules.</p>
- * 
+ *
+ * <p>The domain model should be kept clean of infrastructure concerns and should focus solely on
+ * expressing the business domain and its rules.
+ *
  * <p>Subpackages include:
+ *
  * <ul>
- *   <li>clipboard - Contains domain model classes and services for managing clipboard functionality</li>
+ *   <li>clipboard - Contains domain model classes and services for managing clipboard functionality
  * </ul>
- * </p>
- * 
+ *
  * @since 1.0.0-SNAPSHOT
  */
 package io.joshuasalcedo.fx.domain;
